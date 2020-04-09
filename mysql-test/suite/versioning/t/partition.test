@@ -950,8 +950,8 @@ update t1 set x= x + 4;
 --replace_result $default_engine DEFAULT_ENGINE
 show create table t1;
 
-lock tables t1 write;
 set timestamp= unix_timestamp('2000-01-01 03:00:00');
+lock tables t1 write;
 update t1 set x= x + 5;
 --replace_result $default_engine DEFAULT_ENGINE
 show create table t1;
@@ -977,8 +977,8 @@ insert into v1 values (1);
 --replace_result $default_engine DEFAULT_ENGINE
 show create table t1;
 
-lock tables t1 write;
 set timestamp= unix_timestamp('2000-01-01 01:00:00');
+lock tables t1 write;
 update t1 set x= x + 3;
 --replace_result $default_engine DEFAULT_ENGINE
 show create table t1;
@@ -1029,8 +1029,8 @@ execute s; execute s;
 --replace_result $default_engine DEFAULT_ENGINE
 show create table t1;
 
-lock tables t1 write;
 set timestamp= unix_timestamp('2000-01-01 02:00:00');
+lock tables t1 write;
 execute s; execute s;
 --replace_result $default_engine DEFAULT_ENGINE
 show create table t1;
@@ -1042,8 +1042,8 @@ set timestamp= unix_timestamp('2000-01-01 03:00:00');
 call sp; call sp;
 --replace_result $default_engine DEFAULT_ENGINE
 show create table t1;
-lock tables t1 write;
 set timestamp= unix_timestamp('2000-01-01 04:00:00');
+lock tables t1 write;
 call sp; call sp;
 --replace_result $default_engine DEFAULT_ENGINE
 show create table t1;
@@ -1165,6 +1165,7 @@ select * from t1;
 
 --connect con1, localhost, root
 set lock_wait_timeout= 1;
+--error ER_LOCK_WAIT_TIMEOUT
 insert into t1 values (1);
 select * from t1;
 
